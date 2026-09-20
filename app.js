@@ -6540,7 +6540,7 @@ function dibujarHeroeFallback() {
 }
 /* =========================================================
    CANVAS
-   AJUSTE RESPONSIVO PC + CELULAR
+   RESPONSIVO — VERTICAL + HORIZONTAL + PC
    ========================================================= */
 
 function ajustarCanvas() {
@@ -6555,110 +6555,42 @@ function ajustarCanvas() {
     );
 
     /*
-       Tamaño real disponible de la pantalla
+       Tamaño real disponible
     */
 
-    let ancho = window.innerWidth;
-    let alto = window.innerHeight;
+    const anchoPantalla = Math.max(
+        320,
+        window.innerWidth
+    );
+
+    const altoPantalla = Math.max(
+        240,
+        window.innerHeight
+    );
 
     /*
-       En algunos celulares el navegador puede dejar
-       pequeños espacios por las barras del sistema.
+       El canvas ocupa toda la pantalla.
+       NO forzamos 16:9.
     */
-
-    ancho = Math.max(320, ancho);
-    alto = Math.max(240, alto);
-
-    /*
-       El juego trabaja en proporción horizontal.
-       16:9 es la proporción principal.
-    */
-
-    const proporcionJuego = 16 / 9;
-
-    let anchoJuego;
-    let altoJuego;
-
-    /*
-       Si la pantalla es horizontal
-    */
-
-    if (ancho >= alto) {
-
-        anchoJuego = ancho;
-        altoJuego = anchoJuego / proporcionJuego;
-
-        /*
-           Si el alto calculado supera la pantalla,
-           ajustamos usando el alto disponible.
-        */
-
-        if (altoJuego > alto) {
-
-            altoJuego = alto;
-            anchoJuego = altoJuego * proporcionJuego;
-
-        }
-
-    } else {
-
-        /*
-           En vertical utilizamos todo el ancho
-           disponible y conservamos la proporción.
-        */
-
-        anchoJuego = ancho;
-        altoJuego = anchoJuego / proporcionJuego;
-
-        /*
-           Nunca permitimos que el canvas
-           sobrepase la altura disponible.
-        */
-
-        if (altoJuego > alto) {
-
-            altoJuego = alto;
-            anchoJuego = altoJuego * proporcionJuego;
-
-        }
-
-    }
-
-    /*
-       Centrar visualmente el juego
-    */
-
-    canvas.style.width =
-        Math.floor(anchoJuego) + "px";
-
-    canvas.style.height =
-        Math.floor(altoJuego) + "px";
-
-    canvas.style.display = "block";
 
     canvas.style.position = "absolute";
+    canvas.style.left = "0";
+    canvas.style.top = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
 
-    canvas.style.left =
-        Math.floor((ancho - anchoJuego) / 2) + "px";
+    canvas.width = Math.floor(
+        anchoPantalla * dpr
+    );
 
-    canvas.style.top =
-        Math.floor((alto - altoJuego) / 2) + "px";
-
-    /*
-       Resolución interna real
-       para que no se vea borroso.
-    */
-
-    canvas.width =
-        Math.floor(anchoJuego * dpr);
-
-    canvas.height =
-        Math.floor(altoJuego * dpr);
+    canvas.height = Math.floor(
+        altoPantalla * dpr
+    );
 
     /*
-       Escala el sistema de dibujo
-       para seguir trabajando con coordenadas
-       normales del canvas.
+       El juego sigue dibujándose usando
+       coordenadas CSS normales.
     */
 
     ctx.setTransform(
@@ -6671,28 +6603,68 @@ function ajustarCanvas() {
     );
 
     /*
-       Variables globales útiles si el juego
-       necesita conocer el tamaño visual.
+       Guardamos el tamaño disponible
+       para el juego.
     */
 
     window.anchoCanvasVisual =
-        anchoJuego;
+        anchoPantalla;
 
     window.altoCanvasVisual =
-        altoJuego;
+        altoPantalla;
+
+    /*
+       Variables globales por si el juego
+       las utiliza en otras partes.
+    */
+
+    window.anchoPantalla =
+        anchoPantalla;
+
+    window.altoPantalla =
+        altoPantalla;
 }
 
 
 /* =========================================================
-   ACTUALIZAR CANVAS AL CAMBIAR TAMAÑO
+   REDIMENSIONAR AUTOMÁTICAMENTE
    ========================================================= */
 
-window.addEventListener("resize", () => {
+let ultimoAnchoCanvas = 0;
+let ultimoAltoCanvas = 0;
+
+function actualizarTamanoCanvas() {
+
+    const ancho = window.innerWidth;
+    const alto = window.innerHeight;
+
+    if (
+        ancho === ultimoAnchoCanvas &&
+        alto === ultimoAltoCanvas
+    ) {
+        return;
+    }
+
+    ultimoAnchoCanvas = ancho;
+    ultimoAltoCanvas = alto;
 
     ajustarCanvas();
+}
 
-});
 
+/* =========================================================
+   CAMBIO DE TAMAÑO
+   ========================================================= */
+
+window.addEventListener(
+    "resize",
+    actualizarTamanoCanvas
+);
+
+
+/* =========================================================
+   CAMBIO VERTICAL / HORIZONTAL
+   ========================================================= */
 
 window.addEventListener(
     "orientationchange",
@@ -6700,12 +6672,44 @@ window.addEventListener(
 
         setTimeout(() => {
 
-            ajustarCanvas();
+            ultimoAnchoCanvas = 0;
+            ultimoAltoCanvas = 0;
 
-        }, 250);
+            actualizarTamanoCanvas();
+
+        }, 300);
 
     }
 );
+
+
+/* =========================================================
+   PANTALLA COMPLETA EN CELULAR
+   ========================================================= */
+
+async function activarPantallaCompleta() {
+
+    try {
+
+        if (
+            !document.fullscreenElement &&
+            document.documentElement.requestFullscreen
+        ) {
+
+            await document.documentElement.requestFullscreen();
+
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Pantalla completa no disponible:",
+            error
+        );
+
+    }
+
+}
 
 /* =========================================================
    CONTROLES MÓVILES
