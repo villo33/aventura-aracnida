@@ -624,155 +624,205 @@ body {
         rgba(0,0,0,0.2);
 }
 
-
 /* =========================================================
    CONTROLES PARA CELULAR
    ========================================================= */
 
-#controlesMovil {
+#controlesMoviles {
     position: fixed;
-
-    z-index: 100;
-
+    z-index: 1000;
     inset: 0;
-
+    width: 100%;
+    height: 100%;
     pointer-events: none;
 }
-
 
 /* =========================================================
    GRUPO IZQUIERDO
    ========================================================= */
 
-.controles-movimiento {
+.grupo-movimiento {
     position: absolute;
-
-    left:
-        max(
-            18px,
-            env(safe-area-inset-left)
-        );
-
-    bottom:
-        max(
-            22px,
-            env(safe-area-inset-bottom)
-        );
+    left: max(18px, env(safe-area-inset-left));
+    bottom: max(22px, env(safe-area-inset-bottom));
 
     display: flex;
-
     gap: 14px;
 
     pointer-events: auto;
 }
-
 
 /* =========================================================
    BOTONES DE CONTROL
    ========================================================= */
 
 .control-btn {
-    width:
-        clamp(
-            62px,
-            15vw,
-            82px
-        );
+    width: clamp(68px, 17vw, 86px);
+    height: clamp(68px, 17vw, 86px);
 
-    height:
-        clamp(
-            62px,
-            15vw,
-            82px
-        );
-
-    border: 2px solid
-        rgba(255,255,255,0.5);
-
+    border: 3px solid rgba(255, 255, 255, 0.65);
     border-radius: 50%;
 
     background:
         linear-gradient(
             145deg,
-            rgba(25,53,84,0.95),
-            rgba(5,20,40,0.95)
+            rgba(35, 70, 108, 0.97),
+            rgba(5, 20, 40, 0.97)
         );
 
-    color: white;
+    color: #ffffff;
 
-    font-size:
-        clamp(
-            24px,
-            6vw,
-            34px
-        );
-
+    font-size: clamp(28px, 7vw, 38px);
     font-weight: 1000;
 
-    box-shadow:
-        0 7px 0 #020b15,
-        0 10px 20px
-        rgba(0,0,0,0.35);
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     cursor: pointer;
 
     pointer-events: auto;
+    touch-action: manipulation;
 
-    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+
+    box-shadow:
+        0 8px 0 #020b15,
+        0 12px 24px rgba(0, 0, 0, 0.45);
 
     transition:
         transform 0.08s ease,
         box-shadow 0.08s ease,
-        background 0.08s ease;
+        filter 0.08s ease;
 }
+
+/* =========================================================
+   EFECTO AL TOCAR
+   ========================================================= */
 
 .control-btn:active {
     transform:
-        translateY(6px)
-        scale(0.96);
+        translateY(7px)
+        scale(0.94);
 
     box-shadow:
         0 2px 0 #020b15,
-        0 5px 10px
-        rgba(0,0,0,0.3);
+        0 5px 10px rgba(0, 0, 0, 0.3);
+
+    filter: brightness(1.2);
 }
 
-
 /* =========================================================
-   BOTON SALTO
+   BOTÓN SALTO
    ========================================================= */
 
-.control-salto {
+.salto-btn {
     position: absolute;
 
-    right:
-        max(
-            18px,
-            env(safe-area-inset-right)
-        );
-
-    bottom:
-        max(
-            22px,
-            env(safe-area-inset-bottom)
-        );
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(22px, env(safe-area-inset-bottom));
 
     background:
         linear-gradient(
             145deg,
-            #e52b3d,
-            #991527
+            #ff5264,
+            #c91931
         );
 
     border-color:
-        rgba(255,255,255,0.6);
+        rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 8px 0 #861323,
+        0 12px 24px rgba(0, 0, 0, 0.45);
 }
 
+.salto-btn:active {
+    transform:
+        translateY(7px)
+        scale(0.94);
+
+    box-shadow:
+        0 2px 0 #861323,
+        0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #controlesMoviles {
+        display: block;
+    }
+
+    .control-btn {
+        width: 74px;
+        height: 74px;
+        font-size: 32px;
+    }
+
+    .grupo-movimiento {
+        left: 18px;
+        bottom: 24px;
+        gap: 12px;
+    }
+
+    .salto-btn {
+        right: 18px;
+        bottom: 24px;
+    }
+}
+
+/* =========================================================
+   CELULARES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .control-btn {
+        width: 64px;
+        height: 64px;
+        font-size: 28px;
+    }
+
+    .grupo-movimiento {
+        left: 12px;
+        bottom: 18px;
+        gap: 9px;
+    }
+
+    .salto-btn {
+        right: 12px;
+        bottom: 18px;
+    }
+}
+
+/* =========================================================
+   CELULAR HORIZONTAL
+   ========================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .control-btn {
+        width: 62px;
+        height: 62px;
+        font-size: 27px;
+    }
+
+    .grupo-movimiento {
+        left: 15px;
+        bottom: 15px;
+        gap: 10px;
+    }
+
+    .salto-btn {
+        right: 15px;
+        bottom: 15px;
+    }
+}
 
 /* =========================================================
    MENSAJE DEL JUEGO

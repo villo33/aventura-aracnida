@@ -6600,137 +6600,177 @@ function ajustarCanvas() {
 
 }
 
-
 /* =========================================================
    CONTROLES MÓVILES
-   CORREGIDO PARA NO DUPLICAR LOS DEL HTML
+   SISTEMA TÁCTIL PARA CELULAR
    ========================================================= */
 
 function crearControlesMovil() {
 
-    let controles =
-        document.getElementById(
-            "controlesMoviles"
-        );
-
+    const controles =
+        document.getElementById("controlesMoviles") ||
+        document.getElementById("controlesMovil");
 
     if (!controles) {
-
-        controles =
-            document.getElementById(
-                "controlesMovil"
-            );
-
-    }
-
-
-    if (!controles) {
-
+        console.warn("⚠️ No se encontró el contenedor de controles móviles");
         return;
-
     }
-
 
     const izquierda =
-        document.getElementById(
-            "btnIzquierda"
-        );
-
+        document.getElementById("btnIzquierda");
 
     const derecha =
-        document.getElementById(
-            "btnDerecha"
-        );
-
+        document.getElementById("btnDerecha");
 
     const salto =
-        document.getElementById(
-            "btnSaltar"
-        ) ||
-        document.getElementById(
-            "btnSalto"
-        );
+        document.getElementById("btnSaltar") ||
+        document.getElementById("btnSalto");
 
-
-    if (
-        !izquierda ||
-        !derecha ||
-        !salto
-    ) {
-
+    if (!izquierda || !derecha || !salto) {
+        console.warn("⚠️ No se encontraron todos los botones móviles");
         return;
-
     }
 
+    /*
+       Evita configurar los mismos botones dos veces
+    */
 
-    if (
-        controles.dataset.configurado ===
-        "true"
-    ) {
-
+    if (controles.dataset.configurado === "true") {
         return;
-
     }
 
+    controles.dataset.configurado = "true";
 
-    controles.dataset.configurado =
-        "true";
+    /*
+       Evita que el navegador haga gestos sobre los botones
+    */
 
+    [
+        controles,
+        izquierda,
+        derecha,
+        salto
+    ].forEach(elemento => {
 
-    function configurarMovimiento(
-        boton,
-        tecla
-    ) {
+        elemento.style.touchAction = "none";
+        elemento.style.webkitUserSelect = "none";
+        elemento.style.userSelect = "none";
 
-        const comenzar =
-            evento => {
-
-                evento.preventDefault();
-
-                teclas[tecla] = true;
-
-                boton.classList.add(
-                    "presionado"
-                );
-
-            };
+    });
 
 
-        const terminar =
-            evento => {
+    /* =====================================================
+       MOVIMIENTO IZQUIERDA / DERECHA
+       ===================================================== */
 
-                evento.preventDefault();
+    function configurarMovimiento(boton, tecla) {
 
-                teclas[tecla] = false;
+        let presionando = false;
 
-                boton.classList.remove(
-                    "presionado"
-                );
+        const comenzar = evento => {
 
-            };
+            evento.preventDefault();
+            evento.stopPropagation();
+
+            presionando = true;
+
+            teclas[tecla] = true;
+
+            boton.classList.add("presionado");
+
+            /*
+               Captura el dedo aunque salga un poco
+               del botón mientras lo mantiene presionado.
+            */
+
+            if (boton.setPointerCapture && evento.pointerId !== undefined) {
+
+                try {
+
+                    boton.setPointerCapture(
+                        evento.pointerId
+                    );
+
+                } catch (error) {}
+
+            }
+
+        };
+
+
+        const terminar = evento => {
+
+            evento.preventDefault();
+            evento.stopPropagation();
+
+            presionando = false;
+
+            teclas[tecla] = false;
+
+            boton.classList.remove("presionado");
+
+            if (
+                boton.releasePointerCapture &&
+                evento.pointerId !== undefined
+            ) {
+
+                try {
+
+                    boton.releasePointerCapture(
+                        evento.pointerId
+                    );
+
+                } catch (error) {}
+
+            }
+
+        };
 
 
         boton.addEventListener(
             "pointerdown",
-            comenzar
+            comenzar,
+            {
+                passive: false
+            }
         );
 
 
         boton.addEventListener(
             "pointerup",
-            terminar
+            terminar,
+            {
+                passive: false
+            }
         );
 
 
         boton.addEventListener(
             "pointercancel",
-            terminar
+            terminar,
+            {
+                passive: false
+            }
         );
 
 
         boton.addEventListener(
-            "pointerleave",
-            terminar
+            "lostpointercapture",
+            () => {
+
+                if (presionando) {
+
+                    teclas[tecla] = false;
+
+                    boton.classList.remove(
+                        "presionado"
+                    );
+
+                    presionando = false;
+
+                }
+
+            }
         );
 
     }
@@ -6748,32 +6788,97 @@ function crearControlesMovil() {
     );
 
 
+    /* =====================================================
+       BOTÓN DE SALTO
+       ===================================================== */
+
+    let saltoPresionado = false;
+
+
+    const ejecutarSalto = evento => {
+
+        evento.preventDefault();
+        evento.stopPropagation();
+
+        if (saltoPresionado) {
+            return;
+        }
+
+        saltoPresionado = true;
+
+        salto.classList.add(
+            "presionado"
+        );
+
+        /*
+           Ejecutamos el mismo sistema de salto
+           que utiliza el teclado.
+        */
+
+        saltar();
+
+
+        setTimeout(() => {
+
+            salto.classList.remove(
+                "presionado"
+            );
+
+            saltoPresionado = false;
+
+        }, 140);
+
+    };
+
+
     salto.addEventListener(
         "pointerdown",
+        ejecutarSalto,
+        {
+            passive: false
+        }
+    );
+
+
+    /*
+       También permitimos toque directo en celulares
+       que tengan comportamiento táctil antiguo.
+    */
+
+    salto.addEventListener(
+        "touchstart",
         evento => {
 
             evento.preventDefault();
 
-            saltar();
-
-            salto.classList.add(
-                "presionado"
-            );
-
-
-            setTimeout(
-                () => {
-
-                    salto.classList.remove(
-                        "presionado"
-                    );
-
-                },
-                100
-            );
-
+        },
+        {
+            passive: false
         }
     );
+
+
+    console.log(
+        "📱 CONTROLES TÁCTILES ACTIVADOS"
+    );
+
+}
+
+
+/* =========================================================
+   ACTIVAR CONTROLES CUANDO EL DOCUMENTO ESTÉ LISTO
+   ========================================================= */
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        crearControlesMovil
+    );
+
+} else {
+
+    crearControlesMovil();
 
 }
 
