@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <!-- =====================================================
+         PWA
+         ===================================================== -->
+
+    <meta
+        name="theme-color"
+        content="#0b7a45"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Héroe Arácnido"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <title>Aventura Arácnida</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PANTALLA PRINCIPAL
+         ===================================================== -->
+
+    <main
+        id="inicio"
+        class="pantalla-inicio"
+    >
+
+        <div class="cielo"></div>
+
+        <div class="particulas"></div>
+
+
+        <!-- =========================
+             ENCABEZADO
+             ========================= -->
+
+        <header class="titulo">
+
+            <div class="mini-titulo">
+                UNA GRAN AVENTURA
+            </div>
+
+            <h1>
+                AVENTURA
+                <br>
+                <span>ARÁCNIDA</span>
+            </h1>
+
+            <p class="subtitulo">
+                Dinosaurios • Mundos perdidos • Grandes aventuras
+            </p>
+
+        </header>
+
+
+        <!-- =================================================
+             ESCENA PRINCIPAL
+             ================================================= -->
+
+        <section
+            class="escena"
+            aria-label="Escena principal del juego"
+        >
+
+
+            <!-- CIELO -->
+
+            <div class="luna"></div>
+
+
+            <!-- NUBES -->
+
+            <div class="nube nube-1"></div>
+
+            <div class="nube nube-2"></div>
+
+            <div class="nube nube-3"></div>
+
+
+            <!-- MONTAÑAS -->
+
+            <div class="montana montana-1"></div>
+
+            <div class="montana montana-2"></div>
+
+            <div class="montana montana-3"></div>
+
+
+            <!-- VOLCÁN -->
+
+            <div class="volcan">
+
+                <div class="volcan-humo"></div>
+
+                <div class="volcan-lava"></div>
+
+            </div>
+
+
+            <!-- DINOSAURIOS -->
+
+            <div class="dino dino-1">
+
+                <img
+                    src="assets/images/dinosaurs/trex.png"
+                    alt="T-Rex"
+                >
+
+            </div>
+
+
+            <div class="dino dino-2">
+
+                <img
+                    src="assets/images/dinosaurs/triceratops.png"
+                    alt="Triceratops"
+                >
+
+            </div>
+
+
+            <!-- HÉROE -->
+
+            <div class="heroe">
+
+                <img
+                    src="assets/images/characters/heroe.png"
+                    alt="Héroe arácnido"
+                >
+
+            </div>
+
+
+            <!-- VEGETACIÓN -->
+
+            <div class="palmera palmera-1"></div>
+
+            <div class="palmera palmera-2"></div>
+
+            <div class="arbusto arbusto-1"></div>
+
+            <div class="arbusto arbusto-2"></div>
+
+
+            <!-- HUEVOS -->
+
+            <div class="huevo huevo-1"></div>
+
+            <div class="huevo huevo-2"></div>
+
+
+            <!-- SUELO -->
+
+            <div class="suelo-escena"></div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             INFORMACIÓN DEL JUEGO
+             ================================================= -->
+
+        <section class="info-juego">
+
+
+            <div class="info-item">
+
+                <span class="info-icono">
+                    12
+                </span>
+
+                <span>
+                    NIVELES
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span class="info-icono">
+                    ★
+                </span>
+
+                <span>
+                    ESTRELLAS
+                </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span class="info-icono">
+                    🦖
+                </span>
+
+                <span>
+                    DINOSAURIOS
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             BOTÓN JUGAR
+             ================================================= -->
+
+        <button
+            id="btnJugar"
+            class="boton-jugar"
+            type="button"
+        >
+
+            <span class="boton-icono">
+                ▶
+            </span>
+
+            <span>
+                JUGAR
+            </span>
+
+        </button>
+
+
+        <p class="mensaje">
+
+            Explora, salta, recoge estrellas
+            y supera todos los mundos.
+
+        </p>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         PANTALLA DEL JUEGO
+         ===================================================== -->
+
+    <section
+        id="juego"
+        class="pantalla-juego oculto"
+    >
+
+
+        <!-- =================================================
+             BARRA SUPERIOR
+             ================================================= -->
+
+        <div class="barra-juego">
+
+
+            <div class="hud-item estrellas-hud">
+
+                <span class="hud-icono">
+                    ★
+                </span>
+
+                <span id="estrellas">
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="hud-item nivel-hud">
+
+                <span>
+                    NIVEL
+                </span>
+
+                <strong id="nivel">
+                    1
+                </strong>
+
+            </div>
+
+
+            <div
+                class="hud-item vidas-hud"
+                id="vidas"
+            >
+
+                <span>
+                    ❤️❤️❤️
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             NOMBRE DEL MUNDO
+             ================================================= -->
+
+        <div
+            id="nombreNivel"
+            class="nombre-nivel"
+        >
+            Selva de los Dinosaurios
+        </div>
+
+
+
+        <!-- =================================================
+             CANVAS
+             ================================================= -->
+
+        <div class="canvas-container">
+
+            <canvas
+                id="gameCanvas"
+                aria-label="Juego Aventura Arácnida"
+            ></canvas>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CONTROLES MÓVILES
+             ================================================= -->
+
+        <div
+            id="controlesMoviles"
+            class="controles-moviles"
+        >
+
+
+            <div class="grupo-movimiento">
+
+
+                <button
+                    id="btnIzquierda"
+                    class="control-btn"
+                    type="button"
+                    aria-label="Mover izquierda"
+                >
+                    ◀
+                </button>
+
+
+                <button
+                    id="btnDerecha"
+                    class="control-btn"
+                    type="button"
+                    aria-label="Mover derecha"
+                >
+                    ▶
+                </button>
+
+
+            </div>
+
+
+            <button
+                id="btnSaltar"
+                class="control-btn salto-btn"
+                type="button"
+                aria-label="Saltar"
+            >
+                ▲
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             BOTONES DEL JUEGO
+             ================================================= -->
+
+        <div class="acciones-juego">
+
+
+            <button
+                id="btnAudio"
+                class="accion-btn"
+                type="button"
+                aria-label="Activar o desactivar sonido"
+            >
+                🔊
+            </button>
+
+
+            <button
+                id="btnInicio"
+                class="accion-btn"
+                type="button"
+                aria-label="Volver al inicio"
+            >
+                ⌂
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NIVELES
+         ===================================================== -->
+
+    <script src="levels/level-01.js"></script>
+
+    <script src="levels/level-02.js"></script>
+
+    <script src="levels/level-03.js"></script>
+
+    <script src="levels/level-04.js"></script>
+
+    <script src="levels/level-05.js"></script>
+
+    <script src="levels/level-06.js"></script>
+
+    <script src="levels/level-07.js"></script>
+
+    <script src="levels/level-08.js"></script>
+
+    <script src="levels/level-09.js"></script>
+
+    <script src="levels/level-10.js"></script>
+
+    <script src="levels/level-11.js"></script>
+
+    <script src="levels/level-12.js"></script>
+
+
+
+    <!-- =====================================================
+         MOTOR PRINCIPAL
+         ===================================================== -->
+
+    <script src="app.js"></script>
+
+
+
+    <!-- =====================================================
+         SERVICE WORKER / PWA
+         ===================================================== -->
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener("load", () => {
+
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then(registro => {
+
+                        console.log(
+                            "PWA activada correctamente:",
+                            registro.scope
+                        );
+
+                    })
+                    .catch(error => {
+
+                        console.error(
+                            "Error al activar PWA:",
+                            error
+                        );
+
+                    });
+
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

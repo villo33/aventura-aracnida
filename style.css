@@ -1,0 +1,1254 @@
+/* =========================================================
+   AVENTURA ARÁCNIDA Y DINOSAURIOS
+   ESTILO GENERAL
+   PC + CELULAR
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #071b35;
+
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+
+/* =========================================================
+   PANTALLA INICIAL
+   ========================================================= */
+
+.pantalla-inicio {
+    position: relative;
+
+    width: 100vw;
+    height: 100dvh;
+
+    min-height: 500px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #42bce8 0%,
+            #9ce9ff 43%,
+            #72cf6a 43%,
+            #2d8039 100%
+        );
+}
+
+
+/* =========================================================
+   CIELO
+   ========================================================= */
+
+.cielo {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(255,255,255,0.38),
+            transparent 24%
+        ),
+        linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(255,255,255,0.08) 45%,
+            rgba(0,0,0,0.12) 100%
+        );
+}
+
+
+/* =========================================================
+   TITULO
+   ========================================================= */
+
+.titulo {
+    position: relative;
+    z-index: 10;
+
+    text-align: center;
+
+    margin-top: clamp(22px, 6vh, 55px);
+
+    padding: 0 15px;
+
+    animation:
+        aparecer 0.9s ease-out;
+}
+
+.mini-titulo {
+    color: #ffffff;
+
+    font-size: clamp(11px, 1.5vw, 16px);
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        2px 2px 0 #145a82,
+        0 4px 8px rgba(0,0,0,0.2);
+}
+
+.titulo h1 {
+    margin-top: 7px;
+
+    font-size:
+        clamp(
+            40px,
+            7vw,
+            82px
+        );
+
+    line-height: 0.88;
+
+    font-weight: 1000;
+
+    color: #ffffff;
+
+    letter-spacing: -2px;
+
+    text-shadow:
+        0 6px 0 #17385c,
+        0 10px 20px rgba(0,0,0,0.28);
+}
+
+.titulo h1 span {
+    color: #e52b3d;
+
+    text-shadow:
+        0 5px 0 #7d1420,
+        0 9px 18px rgba(0,0,0,0.28);
+}
+
+.subtitulo {
+    margin-top: 16px;
+
+    color: #ffffff;
+
+    font-size:
+        clamp(
+            13px,
+            2vw,
+            19px
+        );
+
+    font-weight: 700;
+
+    text-shadow:
+        2px 2px 4px rgba(0,0,0,0.45);
+}
+
+
+/* =========================================================
+   ESCENA
+   ========================================================= */
+
+.escena {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 48%;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   NUBES
+   ========================================================= */
+
+.nube {
+    position: absolute;
+
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            80px
+        );
+
+    opacity: 0.7;
+
+    filter:
+        drop-shadow(
+            0 5px 5px
+            rgba(0,0,0,0.08)
+        );
+
+    animation:
+        nubeMovimiento 12s ease-in-out infinite;
+}
+
+.nube-1 {
+    top: 12%;
+    left: 8%;
+}
+
+.nube-2 {
+    top: 3%;
+    right: 10%;
+
+    animation-delay: -5s;
+}
+
+
+/* =========================================================
+   DINOSAURIOS DE PORTADA
+   ========================================================= */
+
+.dino {
+    position: absolute;
+
+    font-size:
+        clamp(
+            65px,
+            10vw,
+            130px
+        );
+
+    filter:
+        drop-shadow(
+            0 9px 6px
+            rgba(0,0,0,0.25)
+        );
+
+    animation:
+        dinoRespira 2s ease-in-out infinite;
+}
+
+.dino-1 {
+    left: 10%;
+    bottom: 13%;
+}
+
+.dino-2 {
+    right: 10%;
+    bottom: 16%;
+
+    animation-delay: -1s;
+}
+
+
+/* =========================================================
+   HEROE DE PORTADA
+   ========================================================= */
+
+.heroe {
+    position: absolute;
+
+    left: 50%;
+    bottom: 18%;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        clamp(
+            90px,
+            12vw,
+            135px
+        );
+
+    height:
+        clamp(
+            90px,
+            12vw,
+            135px
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size:
+        clamp(
+            65px,
+            9vw,
+            95px
+        );
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffffff 0%,
+            #e0f5ff 40%,
+            #63bbed 100%
+        );
+
+    border-radius: 50%;
+
+    border:
+        clamp(5px, 0.6vw, 7px)
+        solid #e52b3d;
+
+    box-shadow:
+        0 9px 0 #7d1420,
+        0 18px 30px rgba(0,0,0,0.3);
+
+    animation:
+        heroeFlota 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   PALMERAS
+   ========================================================= */
+
+.palmera {
+    position: absolute;
+
+    font-size:
+        clamp(
+            70px,
+            10vw,
+            140px
+        );
+
+    filter:
+        drop-shadow(
+            0 7px 5px
+            rgba(0,0,0,0.2)
+        );
+}
+
+.palmera-1 {
+    left: -10px;
+    bottom: 0;
+}
+
+.palmera-2 {
+    right: -10px;
+    bottom: 0;
+}
+
+
+/* =========================================================
+   HUEVOS
+   ========================================================= */
+
+.huevo {
+    position: absolute;
+
+    font-size:
+        clamp(
+            28px,
+            3vw,
+            38px
+        );
+
+    animation:
+        huevoBrilla 1.5s ease-in-out infinite;
+}
+
+.huevo-1 {
+    left: 30%;
+    bottom: 10%;
+}
+
+.huevo-2 {
+    right: 30%;
+    bottom: 8%;
+
+    animation-delay: -0.7s;
+}
+
+
+/* =========================================================
+   BOTON JUGAR
+   ========================================================= */
+
+.boton-jugar {
+    position: absolute;
+
+    z-index: 20;
+
+    bottom:
+        clamp(
+            45px,
+            8vh,
+            75px
+        );
+
+    min-width:
+        clamp(
+            205px,
+            25vw,
+            260px
+        );
+
+    min-height:
+        clamp(
+            62px,
+            8vh,
+            76px
+        );
+
+    padding: 10px 30px;
+
+    border: 0;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ff5264 0%,
+            #e52b3d 52%,
+            #c91931 100%
+        );
+
+    color: white;
+
+    font-size:
+        clamp(
+            23px,
+            3vw,
+            31px
+        );
+
+    font-weight: 1000;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 0 #861323,
+        0 15px 28px rgba(0,0,0,0.35);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        filter 0.15s ease;
+}
+
+.boton-jugar:hover {
+    transform:
+        translateY(-3px)
+        scale(1.04);
+
+    filter: brightness(1.08);
+}
+
+.boton-jugar:active {
+    transform:
+        translateY(7px);
+
+    box-shadow:
+        0 2px 0 #861323,
+        0 7px 13px rgba(0,0,0,0.3);
+}
+
+
+/* =========================================================
+   MENSAJE INFERIOR
+   ========================================================= */
+
+.mensaje {
+    position: absolute;
+
+    z-index: 20;
+
+    bottom: 13px;
+
+    padding: 0 15px;
+
+    text-align: center;
+
+    color: white;
+
+    font-size:
+        clamp(
+            10px,
+            1.3vw,
+            13px
+        );
+
+    font-weight: bold;
+
+    opacity: 0.92;
+
+    text-shadow:
+        1px 2px 3px rgba(0,0,0,0.5);
+}
+
+
+/* =========================================================
+   PANTALLA DE JUEGO
+   ========================================================= */
+
+.pantalla-juego {
+    position: relative;
+
+    width: 100vw;
+    height: 100dvh;
+
+    overflow: hidden;
+
+    background: #071b35;
+}
+
+.pantalla-juego.oculto {
+    display: none;
+}
+
+
+/* =========================================================
+   CANVAS
+   ========================================================= */
+
+#gameCanvas {
+    display: block;
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #64c95b;
+
+    touch-action: none;
+}
+
+
+/* =========================================================
+   HUD DEL JUEGO
+   ========================================================= */
+
+.barra-juego {
+    position: absolute;
+
+    z-index: 50;
+
+    top:
+        max(
+            12px,
+            env(safe-area-inset-top)
+        );
+
+    left: 12px;
+    right: 12px;
+
+    min-height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ELEMENTOS DEL HUD
+   ========================================================= */
+
+.barra-juego > div {
+    min-width: 80px;
+
+    padding:
+        9px 15px;
+
+    border:
+        2px solid
+        rgba(255,255,255,0.35);
+
+    border-radius: 18px;
+
+    background:
+        rgba(7,27,53,0.72);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    color: white;
+
+    font-size:
+        clamp(
+            14px,
+            2vw,
+            22px
+        );
+
+    font-weight: 900;
+
+    text-align: center;
+
+    text-shadow:
+        2px 2px 3px #000;
+
+    box-shadow:
+        0 5px 14px
+        rgba(0,0,0,0.2);
+}
+
+
+/* =========================================================
+   CONTROLES PARA CELULAR
+   ========================================================= */
+
+#controlesMovil {
+    position: fixed;
+
+    z-index: 100;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   GRUPO IZQUIERDO
+   ========================================================= */
+
+.controles-movimiento {
+    position: absolute;
+
+    left:
+        max(
+            18px,
+            env(safe-area-inset-left)
+        );
+
+    bottom:
+        max(
+            22px,
+            env(safe-area-inset-bottom)
+        );
+
+    display: flex;
+
+    gap: 14px;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   BOTONES DE CONTROL
+   ========================================================= */
+
+.control-btn {
+    width:
+        clamp(
+            62px,
+            15vw,
+            82px
+        );
+
+    height:
+        clamp(
+            62px,
+            15vw,
+            82px
+        );
+
+    border: 2px solid
+        rgba(255,255,255,0.5);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25,53,84,0.95),
+            rgba(5,20,40,0.95)
+        );
+
+    color: white;
+
+    font-size:
+        clamp(
+            24px,
+            6vw,
+            34px
+        );
+
+    font-weight: 1000;
+
+    box-shadow:
+        0 7px 0 #020b15,
+        0 10px 20px
+        rgba(0,0,0,0.35);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    touch-action: none;
+
+    transition:
+        transform 0.08s ease,
+        box-shadow 0.08s ease,
+        background 0.08s ease;
+}
+
+.control-btn:active {
+    transform:
+        translateY(6px)
+        scale(0.96);
+
+    box-shadow:
+        0 2px 0 #020b15,
+        0 5px 10px
+        rgba(0,0,0,0.3);
+}
+
+
+/* =========================================================
+   BOTON SALTO
+   ========================================================= */
+
+.control-salto {
+    position: absolute;
+
+    right:
+        max(
+            18px,
+            env(safe-area-inset-right)
+        );
+
+    bottom:
+        max(
+            22px,
+            env(safe-area-inset-bottom)
+        );
+
+    background:
+        linear-gradient(
+            145deg,
+            #e52b3d,
+            #991527
+        );
+
+    border-color:
+        rgba(255,255,255,0.6);
+}
+
+
+/* =========================================================
+   MENSAJE DEL JUEGO
+   ========================================================= */
+
+#mensajeJuego {
+    position: fixed;
+
+    z-index: 200;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(3,14,27,0.68);
+
+    backdrop-filter:
+        blur(7px);
+
+    -webkit-backdrop-filter:
+        blur(7px);
+}
+
+
+.mensaje-juego-contenido {
+    width:
+        min(
+            92vw,
+            500px
+        );
+
+    padding:
+        clamp(25px, 5vw, 45px);
+
+    border:
+        2px solid
+        rgba(255,255,255,0.35);
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #12335b,
+            #071b35
+        );
+
+    text-align: center;
+
+    color: white;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,0.45);
+
+    animation:
+        aparecerMensaje
+        0.3s ease-out;
+}
+
+
+.mensaje-juego-contenido h2 {
+    margin-bottom: 12px;
+
+    font-size:
+        clamp(
+            28px,
+            7vw,
+            46px
+        );
+
+    color: #ffd83d;
+
+    text-shadow:
+        0 4px 0 #8c6d00;
+}
+
+
+.mensaje-juego-contenido p {
+    margin-bottom: 25px;
+
+    font-size:
+        clamp(
+            15px,
+            3vw,
+            20px
+        );
+
+    color: #e7f6ff;
+}
+
+
+#btnReiniciarJuego {
+    min-width: 190px;
+
+    min-height: 55px;
+
+    padding: 10px 25px;
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ff5264,
+            #d71932
+        );
+
+    color: white;
+
+    font-size: 19px;
+
+    font-weight: 1000;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 0 #861323;
+}
+
+
+#btnReiniciarJuego:active {
+    transform:
+        translateY(5px);
+
+    box-shadow:
+        0 1px 0 #861323;
+}
+
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(-30px)
+            scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes aparecerMensaje {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(0.85)
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+@keyframes heroeFlota {
+
+    0%,
+    100% {
+        transform:
+            translateX(-50%)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            translateY(-15px);
+    }
+}
+
+
+@keyframes dinoRespira {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+
+@keyframes nubeMovimiento {
+
+    0% {
+        transform:
+            translateX(-20px);
+    }
+
+    50% {
+        transform:
+            translateX(30px);
+    }
+
+    100% {
+        transform:
+            translateX(-20px);
+    }
+}
+
+
+@keyframes huevoBrilla {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform:
+            scale(1.15);
+
+        filter:
+            brightness(1.3);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .titulo {
+        margin-top: 25px;
+    }
+
+    .escena {
+        height: 46%;
+    }
+
+    .barra-juego {
+        top: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .pantalla-inicio {
+        min-height: 0;
+    }
+
+
+    .titulo {
+        margin-top: 24px;
+    }
+
+
+    .mini-titulo {
+        letter-spacing: 2px;
+    }
+
+
+    .titulo h1 {
+        font-size: 42px;
+        letter-spacing: -1px;
+    }
+
+
+    .subtitulo {
+        margin-top: 10px;
+
+        font-size: 13px;
+    }
+
+
+    .escena {
+        height: 47%;
+    }
+
+
+    .heroe {
+        width: 92px;
+        height: 92px;
+
+        font-size: 62px;
+    }
+
+
+    .dino {
+        font-size: 68px;
+    }
+
+
+    .boton-jugar {
+        bottom: 55px;
+
+        min-width: 205px;
+
+        min-height: 62px;
+
+        font-size: 25px;
+    }
+
+
+    .mensaje {
+        bottom: 15px;
+
+        font-size: 10px;
+    }
+
+
+    .barra-juego {
+        left: 8px;
+        right: 8px;
+
+        gap: 5px;
+    }
+
+
+    .barra-juego > div {
+        min-width: 0;
+
+        padding:
+            7px 10px;
+
+        border-radius: 14px;
+
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .titulo h1 {
+        font-size: 35px;
+    }
+
+
+    .mini-titulo {
+        font-size: 10px;
+    }
+
+
+    .subtitulo {
+        font-size: 11px;
+    }
+
+
+    .dino {
+        font-size: 58px;
+    }
+
+
+    .heroe {
+        width: 78px;
+        height: 78px;
+
+        font-size: 52px;
+    }
+
+
+    .boton-jugar {
+        min-width: 180px;
+
+        min-height: 56px;
+
+        font-size: 22px;
+    }
+
+
+    .control-btn {
+        width: 58px;
+        height: 58px;
+    }
+
+}
+
+
+/* =========================================================
+   PANTALLA HORIZONTAL DE CELULAR
+   ========================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .titulo {
+        margin-top: 10px;
+    }
+
+
+    .titulo h1 {
+        font-size: 34px;
+    }
+
+
+    .subtitulo {
+        margin-top: 6px;
+
+        font-size: 11px;
+    }
+
+
+    .escena {
+        height: 45%;
+    }
+
+
+    .boton-jugar {
+        bottom: 25px;
+
+        min-height: 50px;
+
+        font-size: 21px;
+    }
+
+
+    .mensaje {
+        display: none;
+    }
+
+
+    .barra-juego > div {
+        padding: 5px 9px;
+
+        font-size: 12px;
+    }
+
+
+    .control-btn {
+        width: 58px;
+        height: 58px;
+    }
+}
+
+
+/* =========================================================
+   PANTALLA TÁCTIL
+   ========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .boton-jugar:hover {
+        transform: none;
+        filter: none;
+    }
+
+    .control-btn {
+        cursor: default;
+    }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Aventura del Héroe Arácnido",
+  "short_name": "Héroe Arácnido",
+  "description": "Aventura infantil en la selva prehistórica con dinosaurios.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#071a12",
+  "theme_color": "#0b7a45",
+  "lang": "es-CO",
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
